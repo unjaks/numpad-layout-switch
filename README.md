@@ -7,7 +7,7 @@ this was originally made for personal use with gta 5 mods
 - **caps lock ON** → numpad mode  
 - **caps lock OFF** → normal mode
 ### OR
-- download the .exe from releases if you don't care about your own safety (i TOTALLY put like 10 viruses in there)
+- download the .exe from releases if you *really* don't care
 
 ## notes
 - keep it running in the background
