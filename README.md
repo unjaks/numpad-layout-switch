@@ -11,4 +11,4 @@ this was originally made for personal use with gta 5 mods
 
 ## notes
 - keep it running in the background
-- works for 0-9
+- works ONLY for 0-9
