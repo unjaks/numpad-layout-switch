@@ -1,26 +1,14 @@
-# Numpad Emulator for Keyboards Without Numpad  
+this was originally made for personal use with gta 5 mods
 
-**Description**  
-A C++ Windows utility that simulates numpad input when **Caps Lock is ON**, allowing standard number keys to function as numpad keys.
+# numpad-layout
+## quick(?) setup
+- compile it (windows only)
+- run the .exe (might need admin)  
+- **caps lock ON** → numpad mode  
+- **caps lock OFF** → normal mode
+### OR
+- download the .exe from releases if you don't care about your own safety (i TOTALLY put like 10 viruses in there)
 
-## Features  
-- Converts `0-9`, `.`, `+`, `-`, `*`, `/`, and `Enter` to numpad equivalents  
-- Toggle with Caps Lock (only active when Caps Lock is ON)  
-- Runs in background  
-
-## How It Works  
-- Uses a low-level keyboard hook (`WH_KEYBOARD_LL`)  
-- Maps standard keys to numpad virtual key codes  
-- Blocks original keypresses when Caps Lock is active  
-
-## Build & Run  
-1. Compile with a C++ compiler (e.g., Visual Studio, MinGW)  
-2. Run the executable (admin rights may be required)  
-
-## Usage  
-1. Turn **Caps Lock ON** → Number keys act as numpad  
-2. Turn **Caps Lock OFF** → Normal keyboard behavior  
-
-## Notes  
-- Requires Windows  
-- Keep the program running for functionality  
+## notes
+- keep it running in the background
+- works for 0-9
