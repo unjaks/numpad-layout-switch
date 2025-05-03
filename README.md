@@ -3,7 +3,7 @@ this was originally made for personal use with gta 5 mods
 # numpad-layout-switch
 ## quick(?) setup
 - compile it (windows only)
-- run the .exe (might need admin)  
+- run the .exe as admin 
 - **caps lock ON** → numpad mode  
 - **caps lock OFF** → normal mode
 ### OR
