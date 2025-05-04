@@ -2,7 +2,7 @@ this was originally made for personal use with gta 5 mods
 
 # numpad-layout-switch
 ## quick(?) setup
-- compile it (windows only; x86 or x64)
+- compile it (windows only; if using Visual Studio then x64 Release or Debug)
 - run the .exe as admin 
 - **caps lock ON** → numpad mode  
 - **caps lock OFF** → normal mode
