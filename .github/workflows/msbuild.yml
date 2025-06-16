@@ -1,66 +1,29 @@
-name: build & release
+name: Build and Release
+
 on:
   push:
-    branches: [ master ]
-  workflow_dispatch:
+    tags:
+      - 'v*'
 
 jobs:
   build:
     runs-on: windows-latest
-
     steps:
-    - uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-    - name: setup
-      uses: microsoft/setup-msbuild@v1
+      - name: Setup MSBuild
+        uses: microsoft/setup-msbuild@v1.1
 
-    - name: build
-      shell: cmd
-      run: |
-        if exist numpadEmu.sln (
-          msbuild numpadEmu.sln /p:Configuration=Release /p:Platform=x64
-        ) else (
-          cl numpadEmu.cpp /Fe:numpadEmu.exe /O2 /EHsc
-        )
+      - name: Build solution
+        run: msbuild numpadEmu.sln /p:Configuration=Release
 
-    - name: verify success
-      id: verify_exe
-      shell: cmd
-      run: |
-        if exist numpadEmu\x64\Release\numpadEmu.exe (
-          echo exe_exists=true >> "%GITHUB_OUTPUT%"
-          echo exe_path=numpadEmu\x64\Release\numpadEmu.exe >> "%GITHUB_OUTPUT%"
-        ) else (
-          if exist numpadEmu.exe (
-            echo exe_exists=true >> "%GITHUB_OUTPUT%"
-            echo exe_path=numpadEmu.exe >> "%GITHUB_OUTPUT%"
-          ) else (
-            echo exe_exists=false >> "%GITHUB_OUTPUT%"
-          )
-        )
-
-    - name: upload artifact
-      if: steps.verify_exe.outputs.exe_exists == 'true'
-      uses: actions/upload-artifact@v4
-      with:
-        name: numpadEmu
-        path: ${{ steps.verify_exe.outputs.exe_path }}
-
-  release:
-    needs: build
-    if: needs.build.steps.verify_exe.outputs.exe_exists == 'true'
-    runs-on: windows-latest
-
-    steps:
-    - name: download artifact
-      uses: actions/download-artifact@v4
-      with:
-        name: numpadEmu
-
-    - name: create release :)
-      uses: softprops/action-gh-release@v1
-      with:
-        files: numpadEmu.exe
-        generate_release_notes: true
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Create Release
+        id: create_release
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: ${{ github.ref }}
+          files: |
+            numpadEmu\x64\Release\numpadEmu.exe
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
