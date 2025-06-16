@@ -1,4 +1,4 @@
-name: csbrl
+name: csbr
 
 on:
   push:
@@ -19,15 +19,20 @@ jobs:
       - name: build
         run: msbuild numpadEmu.sln /p:Configuration=Release
 
-      - name: list
-        run: dir ${{ github.workspace }}\x64\Release
+      - name: Find Executable
+        id: find_executable
+        run: |
+          echo "searching the exe..."
+          exe_path=$(find ${{ github.workspace }} -name "numpadEmu.exe" -print -quit)
+          echo "found at: $exe_path"
+          echo "::set-output name=exe_path::$exe_path"
 
       - name: release
         id: create_release
         uses: softprops/action-gh-release@v1
         with:
           tag_name: v${{ github.run_number }}
-          files: |
-            numpadEmu.exe
+          files: ${{ steps.find_executable.outputs.exe_path }}
+          draft: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
