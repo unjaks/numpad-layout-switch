@@ -1,5 +1,4 @@
 name: build & release
-
 on:
   push:
     branches: [ master ]
@@ -12,10 +11,10 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
-    - name: Setup MSBuild
+    - name: setup
       uses: microsoft/setup-msbuild@v1
 
-    - name: Build Solution
+    - name: build
       shell: cmd
       run: |
         if exist numpadEmu.sln (
@@ -24,22 +23,28 @@ jobs:
           cl numpadEmu.cpp /Fe:numpadEmu.exe /O2 /EHsc
         )
 
-    - name: Verify executable exists
+    - name: verify success
       id: verify_exe
       shell: cmd
       run: |
-        if exist x64/Release/numpadEmu.exe (
-          echo "exe_exists=true" >> $GITHUB_OUTPUT
+        if exist numpadEmu\x64\Release\numpadEmu.exe (
+          echo exe_exists=true >> "%GITHUB_OUTPUT%"
+          echo exe_path=numpadEmu\x64\Release\numpadEmu.exe >> "%GITHUB_OUTPUT%"
         ) else (
-          echo "exe_exists=false" >> $GITHUB_OUTPUT
+          if exist numpadEmu.exe (
+            echo exe_exists=true >> "%GITHUB_OUTPUT%"
+            echo exe_path=numpadEmu.exe >> "%GITHUB_OUTPUT%"
+          ) else (
+            echo exe_exists=false >> "%GITHUB_OUTPUT%"
+          )
         )
 
-    - name: Upload Artifact
+    - name: upload artifact
       if: steps.verify_exe.outputs.exe_exists == 'true'
       uses: actions/upload-artifact@v4
       with:
         name: numpadEmu
-        path: numpadEmu.exe
+        path: ${{ steps.verify_exe.outputs.exe_path }}
 
   release:
     needs: build
@@ -47,12 +52,12 @@ jobs:
     runs-on: windows-latest
 
     steps:
-    - name: Download Artifact
+    - name: download artifact
       uses: actions/download-artifact@v4
       with:
         name: numpadEmu
 
-    - name: Create Release
+    - name: create release :)
       uses: softprops/action-gh-release@v1
       with:
         files: numpadEmu.exe
