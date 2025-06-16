@@ -25,6 +25,6 @@ jobs:
         with:
           tag_name: v${{ github.run_number }}
           files: |
-            D:\a\numpad-layout-switch\numpad-layout-switch\x64\Release\numpadEmu.exe
+            numpadEmu\x64\Release\numpadEmu.exe
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
