@@ -32,11 +32,11 @@ jobs:
           }
 
       - name: await
-        run: Start-Sleep -Seconds 5
+        run: Start-Sleep -Seconds 1
 
       - name: release
         id: create_release
-        uses: softprops/action-gh-release@v1
+        uses: softprops/action-gh-release@v2
         with:
           tag_name: v${{ github.run_number }}
           files: ${{ steps.find_executable.outputs.exe_path }}
