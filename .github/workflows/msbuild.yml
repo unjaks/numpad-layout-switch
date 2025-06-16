@@ -28,7 +28,7 @@ jobs:
       id: verify_exe
       shell: cmd
       run: |
-        if exist numpadEmu.exe (
+        if exist x64/Release/numpadEmu.exe (
           echo "exe_exists=true" >> $GITHUB_OUTPUT
         ) else (
           echo "exe_exists=false" >> $GITHUB_OUTPUT
