@@ -1,4 +1,4 @@
-name: csbr
+name: csbrl
 
 on:
   push:
@@ -18,6 +18,9 @@ jobs:
 
       - name: build
         run: msbuild numpadEmu.sln /p:Configuration=Release
+
+      - name: list
+        run: dir ${{ github.workspace }}\x64\Release
 
       - name: release
         id: create_release
