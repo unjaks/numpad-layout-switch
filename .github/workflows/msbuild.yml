@@ -1,4 +1,4 @@
-name: Build and Release
+name: b&r
 
 on:
   push:
