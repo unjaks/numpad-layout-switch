@@ -16,6 +16,7 @@ jobs:
       uses: microsoft/setup-msbuild@v1
 
     - name: Build Solution
+      shell: cmd
       run: |
         if exist numpadEmu.sln (
           msbuild numpadEmu.sln /p:Configuration=Release /p:Platform=x64
@@ -25,6 +26,7 @@ jobs:
 
     - name: Verify executable exists
       id: verify_exe
+      shell: cmd
       run: |
         if exist numpadEmu.exe (
           echo "exe_exists=true" >> $GITHUB_OUTPUT
