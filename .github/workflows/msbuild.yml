@@ -6,6 +6,9 @@ on:
       - main
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   build:
     runs-on: windows-latest
@@ -25,21 +28,18 @@ jobs:
           $exe_path = Get-ChildItem -Path ${{ github.workspace }} -Recurse -Filter "numpadEmu.exe" | Select-Object -First 1
           if ($exe_path) {
             echo "exe found at: $exe_path"
-            echo "::set-output name=exe_path::$($exe_path.FullName)"
+            echo "exe_path=$($exe_path.FullName)" >> $env:GITHUB_OUTPUT
           } else {
             echo "exe not found."
             exit 1
           }
 
-      - name: await
-        run: Start-Sleep -Seconds 1
-
       - name: release
-        id: create_release
         uses: softprops/action-gh-release@v2
         with:
           tag_name: v${{ github.run_number }}
           files: ${{ steps.find_executable.outputs.exe_path }}
           draft: true
+          generate_release_notes: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
