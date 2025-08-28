@@ -13,4 +13,4 @@ this was originally made for personal use with gta 5 mods
 ## notes
 - keep it running in the background
 - works only for numbers
-- should only be used if your keyboard doesn't have a numpad (duh. also if ur keyboard doesn't have a numpad AND doesn't have layout switching capability)
+- should only be used if your keyboard doesn't have a numpad (duh. also if ur keyboard doesn't have a numpad AND doesn't have layout switching)
